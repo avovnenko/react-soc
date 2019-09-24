@@ -10,7 +10,19 @@
     object-fit: cover;
 }
 
-.item .like {
+.name {
+    font-size: 22px;
+}
+
+.status {
+    font-size: 18px;
+}
+
+.message {
+   color: #000000;
+}
+
+.like {
     width: 100px;
     height: 25px;
     line-height: 25px;

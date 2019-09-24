@@ -1,0 +1,10 @@
+.dialog a.active {
+    color: salmon;
+}
+.dialog {
+    margin-bottom: 5px;
+}
+.dialog a {
+    color: white;
+    text-decoration: none;
+}

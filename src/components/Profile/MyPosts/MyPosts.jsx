@@ -13,9 +13,9 @@ const MyPosts = () => {
 				<button>Remove</button>
 			</div>
 			<div className={s.posts}>
-				<Post/>
-				<Post/>
-				<Post/>
+				<Post name='Anton' status='Coco' message='Hello Natasha!'/>
+				<Post name='Natasha' status='Coco' message='Hello Coco!'/>
+				<Post name='Masik' status={`Dog`} message='Meow!'/>
 			</div>
 		</div>
 	);
