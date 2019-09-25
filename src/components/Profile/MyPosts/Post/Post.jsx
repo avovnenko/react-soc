@@ -13,6 +13,9 @@ const Post = (props) => {
 			<div className={s.like}>
 				<span>Like</span>
 			</div>
+			<div className={s.likesCount}>
+				{props.likesCount} likes
+			</div>
 		</div>
 	);
 };
