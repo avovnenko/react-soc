@@ -8,24 +8,31 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import {BrowserRouter, Route} from "react-router-dom"
 
-const App = () => {
-  return (
-  	<BrowserRouter>
-		<div className='app-wrapper'>
+const App = (props) => {
+	let componentsDialogs = () => <Dialogs myDialogs={props.myDialogs} myMessages={props.myMessages}/>,
+		componentsProfile = () => <Profile myPosts={props.myPosts}/>;
 
-			<Header/>
+	return (
+		<BrowserRouter>
+			<div className='app-wrapper'>
 
-			<Navbar/>
+				<Header/>
 
-			<div className='app-wrapper-content'>
-				<Route path={`/dialogs`} component={Dialogs}/>
-				<Route path={`/profile`} component={Profile}/>
-				<Route path={`/news`} component={News}/>
+				<Navbar/>
+
+				<div className='app-wrapper-content'>
+					{/*<Route path={`/dialogs`} component={Dialogs}/>*/}
+					{/*<Route path={`/profile`} component={Profile}/>*/}
+
+					<Route path={`/news`} component={News}/>
+
+
+					<Route path={`/dialogs`} render={componentsDialogs}/>
+					<Route path={`/profile`} render={componentsProfile}/>
+				</div>
 			</div>
-		</div>
-	</BrowserRouter>
-
-  );
+		</BrowserRouter>
+	);
 };
 
 export default App;
