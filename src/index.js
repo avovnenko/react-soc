@@ -22,6 +22,8 @@ let messages = [
 	{id: 3, message: 'Good'}
 ];
 
+console.log('alert');
+
 ReactDOM.render(<App myPosts={postsData} myDialogs={dialogs} myMessages={messages} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
