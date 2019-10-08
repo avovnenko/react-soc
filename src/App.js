@@ -9,16 +9,16 @@ import News from "./components/News/News";
 import {BrowserRouter, Route} from "react-router-dom"
 
 const App = (props) => {
-	let componentsDialogs = () => <Dialogs myDialogs={props.myDialogs} myMessages={props.myMessages}/>,
-		componentsProfile = () => <Profile myPosts={props.myPosts}/>;
+	let componentsDialogs = () => <Dialogs state={props.appState.dialogsPage}/>,
+
+		componentsProfile = () => <Profile state={props.appState.profilePage}/>;
 
 	return (
-		<BrowserRouter>
-			<div className='app-wrapper'>
+		<div className='app-wrapper'>
 
 				<Header/>
 
-				<Navbar/>
+				<Navbar state={props.appState.sidebar}/>
 
 				<div className='app-wrapper-content'>
 					{/*<Route path={`/dialogs`} component={Dialogs}/>*/}
@@ -31,7 +31,6 @@ const App = (props) => {
 					<Route path={`/profile`} render={componentsProfile}/>
 				</div>
 			</div>
-		</BrowserRouter>
 	);
 };
 

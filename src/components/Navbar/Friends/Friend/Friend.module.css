@@ -1,0 +1,14 @@
+.friend {
+    text-align: center;
+    margin-right: 15px;
+    color: #3d3b3e;
+}
+.friend:last-child {
+    margin-right: 0;
+}
+.friend img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50px;
+}

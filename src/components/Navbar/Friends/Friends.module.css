@@ -1,0 +1,7 @@
+.friends {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+}
