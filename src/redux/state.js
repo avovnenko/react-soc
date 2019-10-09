@@ -1,3 +1,7 @@
+let rerenderAllTree = () => {
+	console.log('state was changed');
+};
+
 let state = {
 	profilePage: {
 		posts: [
@@ -5,7 +9,8 @@ let state = {
 			{id: 2, name: 'Natasha', status: 'Coco', message: 'Hello Coco!', likesCount: '15'},
 			{id: 3, name: 'Masik', status: 'Dog', message: 'Meow!', likesCount: '999'},
 			{id: 3, name: 'NewCat', status: 'Dog', message: 'Meow, blyat!', likesCount: '1'}
-		]
+		],
+		newPostText: 'Hello Redux'
 	},
 	dialogsPage: {
 		messages: [
@@ -26,6 +31,29 @@ let state = {
 			{id: 3, name: 'Masik', url: 'https://external-preview.redd.it/w4OHuxBN_rhoieORy0LabFzJ4rB837GmYlqp1P2Q5h8.jpg?auto=webp&s=e48b59100278a43bb318b6d35c0d3298e355cee0'}
 		]
 	}
+};
+
+window.state = state;
+
+export const addPost = () => {
+	let newPost = {
+		id: 5,
+		name: 'Anonymus',
+		status: 'noname',
+		message: state.profilePage.newPostText,
+		likesCount: 0
+	};
+	state.profilePage.posts.push(newPost);
+	state.profilePage.newPostText = '';
+	rerenderAllTree(state);
+};
+export const updateNewPostText = (newText) => {
+	state.profilePage.newPostText = newText;
+	rerenderAllTree(state);
+};
+
+export const subscribe = (observer) => {
+	rerenderAllTree = observer;
 };
 
 export default state;

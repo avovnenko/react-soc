@@ -7,11 +7,16 @@ import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import {BrowserRouter, Route} from "react-router-dom"
+import {updateNewPostText} from "./redux/state";
 
 const App = (props) => {
-	let componentsDialogs = () => <Dialogs state={props.appState.dialogsPage}/>,
+	let componentsDialogs = () => <Dialogs
+			state={props.appState.dialogsPage}/>,
 
-		componentsProfile = () => <Profile state={props.appState.profilePage}/>;
+		componentsProfile = () => <Profile
+			state={props.appState.profilePage}
+			addPost={props.addPost}
+			updateNewPostText={props.updateNewPostText}/>;
 
 	return (
 		<div className='app-wrapper'>
