@@ -9,8 +9,10 @@ import News from "./components/News/News";
 import {Route} from "react-router-dom"
 
 const App = (props) => {
+
 	let componentsDialogs = () => <Dialogs
-			state={props.state.dialogsPage}/>,
+			state={props.state.dialogsPage}
+			dispatch={props.dispatch}/>,
 
 		componentsProfile = () => <Profile
 			state={props.state.profilePage}
@@ -20,12 +22,9 @@ const App = (props) => {
 		<div className='app-wrapper'>
 
 				<Header/>
-
 				<Navbar state={props.state.sidebar}/>
 
 				<div className='app-wrapper-content'>
-					{/*<Route path={`/dialogs`} component={Dialogs}/>*/}
-					{/*<Route path={`/profile`} component={Profile}/>*/}
 
 					<Route path={`/news`} component={News}/>
 

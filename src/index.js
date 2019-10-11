@@ -15,8 +15,6 @@ export let rerenderAllTree = (state) => {
 		</BrowserRouter>, document.getElementById('root') );
 };
 
-// addPost={store.addPost} updateNewPostText={store.updateNewPostText}
-
 
 rerenderAllTree(store.getState);
 
