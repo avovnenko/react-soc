@@ -1,19 +1,6 @@
-// export const addPost = () => {
-//
-// };
-// export const updateNewPostText = (newText) => {
-//
-// };
-//
-// export const subscribe = (observer) => {
-//
-// };
-
-const ADD_POST = 'ADD-POST',
-	  UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
 
 let store = {
 	_state: {
@@ -86,26 +73,17 @@ let store = {
 		this._state.dialogsPage.messages.push(newMessage)
 		this._state.dialogsPage.newMessageBody = '';
 		this._callSubscriber(this._state);
-		debugger;
 	},
 
 	dispatch(action) {
-		if (action.type === ADD_POST) {
-			this._addPost();
-		} else if (action.type === UPDATE_NEW_POST_TEXT) {
-			this._updateNewPostText(action.newText);
-		} else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-			this._updateNewMessageText(action.newMessageBody);
-		} else if (action.type === SEND_MESSAGE) {
-			this._addMessage();
-		}
+		profileReducer(this._state.profilePage, action);
+		dialogsReducer(this._state.dialogsPage, action);
+		sidebarReducer(this._state.sidebar, action);
+
+		this._callSubscriber(this._state);
 	}
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
-export const updateNewMessageTextActionCreator = (text) => ({ type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: text });
-export const addMessageActionCreator = () => ({ type: SEND_MESSAGE });
 
 window.store = store;
 

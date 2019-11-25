@@ -1,0 +1,66 @@
+.users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.pic_block {
+    flex: 0 0 80px;
+    width: 80px;
+    text-align: center;
+}
+.pic {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.pic img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.follow_btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 16px ;
+}
+.follow_btn.unfollow {
+    background-color: red;
+}
+.follow_btn.follow {
+    background-color: green;
+}
+.user_block {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 25px;
+    border: 1px solid rgb(51, 51, 51);
+    border-radius: 5px;
+    padding: 15px;
+    width: 45%;
+}
+.name {
+
+}
+.status {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5px;
+    width: 100%;
+}
+.location {
+    margin-left: auto;
+}
+.show_more {
+    flex-basis: 100%;
+    padding: 15px;
+    cursor: pointer;
+}
