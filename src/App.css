@@ -20,5 +20,6 @@ body {
     grid-area: c;
     background-color: #e9ebee;
     padding: 20px;
+    position: relative;
 }
 

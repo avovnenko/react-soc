@@ -1,13 +1,15 @@
 import React from "react";
 import {connect} from "react-redux"
 import * as axios from "axios";
-import Users from "./Users.js";
+import Users from "./Users";
+import s from './Users.module.css';
+import preloader from '../../assets/images/preloader.svg';
 import {
 	followAC,
 	setCurrentPageAC,
 	setTotalUsersCountAC,
 	setUsersAC,
-	showMoreAC,
+	showMoreAC, turnOffPreloaderAC, turnOnPreloaderAC,
 	unfollowAC
 } from "../../redux/usersReducer";
 
@@ -23,15 +25,31 @@ class UsersContainer extends React.Component {
 		this.props.showMore();
 	};
 	setCurrentPage = (pageNumber) => {
-		this.props.setCurrentPage(pageNumber);
-		this.getUsers(pageNumber);
+		if (pageNumber !== this.props.currentPage) {
+			this.props.setCurrentPage(pageNumber);
+			this.getUsers(pageNumber);
+		}
 	};
+
+	turnOnPreloader = () => {
+		this.props.turnOnPreloader();
+	};
+	turnOffPreloader = () => {
+		this.props.turnOffPreloader();
+	};
+
 	getUsers(pageNumber) {
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=5`).then(response => {
-			this.props.setUsers(response.data.items);
-			this.props.setTotalUsersCount(response.data.totalCount);
-		});
+		this.turnOnPreloader();
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=5`)
+			.then(response => {
+				this.props.setUsers(response.data.items);
+				this.props.setTotalUsersCount(response.data.totalCount);
+			})
+			.then(() => {
+				this.turnOffPreloader();
+			});
 	};
+
 	componentDidMount() {
 		if (this.props.users.length === 0) {
 			this.getUsers(this.props.currentPage);
@@ -39,18 +57,23 @@ class UsersContainer extends React.Component {
 	};
 
 
-
 	render() {
-		return <Users
-			totalUsersCount={this.props.totalUsersCount}
-			pageSize={this.props.pageSize}
-			currentPage={this.props.currentPage}
-			users={this.props.users}
-			showMore={this.showMore}
-			unFollowUser={this.unFollowUser}
-			followUser={this.followUser}
-			setCurrentPage={this.setCurrentPage}
-		/>;
+		return <>
+			{this.props.isFetching ? <div className={s.preloaderWrapper}>
+				<div className={s.matrixBg}></div>
+				<img src={preloader}/></div> : null}
+			<Users
+				totalUsersCount={this.props.totalUsersCount}
+				pageSize={this.props.pageSize}
+				currentPage={this.props.currentPage}
+				users={this.props.users}
+				isFetching={this.props.isFetching}
+				showMore={this.showMore}
+				unFollowUser={this.unFollowUser}
+				followUser={this.followUser}
+				setCurrentPage={this.setCurrentPage}
+			/>
+		</>
 	}
 }
 
@@ -60,7 +83,8 @@ const mapStateToProps = (state) => {
 		showUsers: state.usersPage.showUsers,
 		pageSize: state.usersPage.pageSize,
 		totalUsersCount: state.usersPage.totalUsersCount,
-		currentPage: state.usersPage.currentPage
+		currentPage: state.usersPage.currentPage,
+		isFetching: state.usersPage.isFetching
 	}
 };
 
@@ -83,6 +107,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setCurrentPage: (currentPage) => {
 			dispatch(setCurrentPageAC(currentPage))
+		},
+		turnOnPreloader: () => {
+			dispatch(turnOnPreloaderAC())
+		},
+		turnOffPreloader: () => {
+			dispatch(turnOffPreloaderAC())
 		}
 	}
 };
