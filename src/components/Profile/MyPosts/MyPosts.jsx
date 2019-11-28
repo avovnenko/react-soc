@@ -2,35 +2,39 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 
-const MyPosts = (props) => {
+class MyPosts extends React.Component {
+	constructor(props) {
+		super(props);
+		this.postsElements =
+			this.props.posts.map( p => <Post name={p.name} status={p.status} message={p.message} key={p.id} likesCount={p.likesCount}/>);
 
-	let postsElements =
-		props.posts.map( p => <Post name={p.name} status={p.status} message={p.message} key={p.id} likesCount={p.likesCount}/>);
+		this.newPostElement = React.createRef()
+	}
 
-	let newPostElement = React.createRef()
-
-	let onAddPost = () => {
-		props.addPost();
+	onAddPost = () => {
+		this.props.addPost();
 	};
 
-	let onPostChange = () => {
-		let text = newPostElement.current.value;
-		props.updateNewPostText(text)
+	onPostChange = () => {
+		let text = this.newPostElement.current.value;
+		this.props.updateNewPostText(text)
 	};
 
-	return (
-		<div className={s.myPostsBlock}>
-			My posts
-			<div className={s.addPost}>
-				<textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/><br/>
-				<button onClick={ onAddPost }>Add post</button>
-				<button>Remove</button>
+	render() {
+		return (
+			<div className={s.myPostsBlock}>
+				My posts
+				<div className={s.addPost}>
+					<textarea ref={this.newPostElement} value={this.props.newPostText} onChange={this.onPostChange}/><br/>
+					<button onClick={ this.onAddPost }>Add post</button>
+					<button>Remove</button>
+				</div>
+				<div className={s.posts}>
+					{this.postsElements}
+				</div>
 			</div>
-			<div className={s.posts}>
-				{postsElements}
-			</div>
-		</div>
-	);
-};
+		);
+	}
+}
 
 export default MyPosts;
