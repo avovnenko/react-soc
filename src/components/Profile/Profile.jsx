@@ -3,16 +3,14 @@ import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-class Profile extends React.Component {
-	render() {
-		return (
-			<div className={s.content}>
-				<ProfileInfo/>
+const Profile = (props) => {
+	return (
+		<div className={s.content}>
+			<ProfileInfo profile={props.profile}/>
 
-				<MyPostsContainer store={this.props.store} />
-			</div>
-		);
-	}
-}
+			<MyPostsContainer store={props.store} />
+		</div>
+	);
+};
 
 export default Profile;

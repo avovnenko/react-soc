@@ -86,28 +86,3 @@
     padding: 15px;
     cursor: pointer;
 }
-.preloaderWrapper {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
-.preloaderWrapper .matrixBg {
-    background: url(../../assets/images/matrix.svg) no-repeat;
-    background-size: cover;
-    opacity: .7;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
-.preloaderWrapper img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 1;
-    width: 150px;
-}

@@ -70,7 +70,6 @@ const usersReducer = (state = initialState, action) => {
 				...state,
 				isFetching: true
 			};
-
 		case TURN_OFF_PRELOADER:
 			return {
 				...state,
@@ -83,11 +82,11 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
-export const followAC = (userId) => ({type: FOLLOW, userId: userId});
-export const unfollowAC = (userId) => ({type: UNFOLLOW, userId: userId});
-export const setUsersAC = (users, totalUsersCount) => ({type: SET_USERS, users: users, totalUsersCount: totalUsersCount});
-export const showMoreAC = () => ({type: SHOW_MORE});
-export const setTotalUsersCountAC = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
-export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
-export const turnOnPreloaderAC = () => ({type: TURN_ON_PRELOADER});
-export const turnOffPreloaderAC = () => ({type: TURN_OFF_PRELOADER});
+export const follow = (userId) => ({type: FOLLOW, userId: userId});
+export const unfollow = (userId) => ({type: UNFOLLOW, userId: userId});
+export const setUsers = (users, totalUsersCount) => ({type: SET_USERS, users: users, totalUsersCount: totalUsersCount});
+export const showMore = () => ({type: SHOW_MORE});
+export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
+export const turnOnPreloader = () => ({type: TURN_ON_PRELOADER});
+export const turnOffPreloader = () => ({type: TURN_OFF_PRELOADER});

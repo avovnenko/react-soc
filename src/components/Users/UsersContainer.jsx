@@ -2,15 +2,14 @@ import React from "react";
 import {connect} from "react-redux"
 import * as axios from "axios";
 import Users from "./Users";
-import s from './Users.module.css';
-import preloader from '../../assets/images/preloader.svg';
+import Preloader from "../common/Preloader/Preloader";
 import {
-	followAC,
-	setCurrentPageAC,
-	setTotalUsersCountAC,
-	setUsersAC,
-	showMoreAC, turnOffPreloaderAC, turnOnPreloaderAC,
-	unfollowAC
+	follow,
+	setCurrentPage,
+	setTotalUsersCount,
+	setUsers,
+	showMore, turnOffPreloader, turnOnPreloader,
+	unfollow
 } from "../../redux/usersReducer";
 
 
@@ -59,9 +58,7 @@ class UsersContainer extends React.Component {
 
 	render() {
 		return <>
-			{this.props.isFetching ? <div className={s.preloaderWrapper}>
-				<div className={s.matrixBg}></div>
-				<img src={preloader}/></div> : null}
+			{this.props.isFetching ? <Preloader/> : null}
 			<Users
 				totalUsersCount={this.props.totalUsersCount}
 				pageSize={this.props.pageSize}
@@ -88,33 +85,11 @@ const mapStateToProps = (state) => {
 	}
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		follow: (userId) => {
-			dispatch(followAC(userId));
-		},
-		unFollow: (userId) => {
-			dispatch(unfollowAC(userId));
-		},
-		showMore: () => {
-			dispatch(showMoreAC())
-		},
-		setUsers: (users) => {
-			dispatch(setUsersAC(users));
-		},
-		setTotalUsersCount: (totalUsersCount) => {
-			dispatch(setTotalUsersCountAC(totalUsersCount))
-		},
-		setCurrentPage: (currentPage) => {
-			dispatch(setCurrentPageAC(currentPage))
-		},
-		turnOnPreloader: () => {
-			dispatch(turnOnPreloaderAC())
-		},
-		turnOffPreloader: () => {
-			dispatch(turnOffPreloaderAC())
-		}
-	}
+const mapDispatchToProps = {
+	follow, unfollow,
+	showMore, setUsers,
+	setTotalUsersCount, setCurrentPage,
+	turnOnPreloader, turnOffPreloader
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
