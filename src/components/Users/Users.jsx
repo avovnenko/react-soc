@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import userPhoto from '../../assets/images/nophoto.jpg';
 import {NavLink} from "react-router-dom";
 
-
 let Users = (props) => {
 	
 	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -39,12 +38,18 @@ let Users = (props) => {
 									</NavLink>
 								</div>
 								{u.followed
-									? <button className={`${s.follow_btn} ${s.unfollow}`} onClick={() => {
-										props.unFollowUser(u.id)
-									}}>Unfollow</button>
-									: <button className={`${s.follow_btn} ${s.follow}`} onClick={() => {
-										props.followUser(u.id)
-									}}>Follow</button>
+									?
+									<button disabled={props.followingInProgress.some(id => id === u.id)}
+											className={`${s.follow_btn} ${s.unfollow}`}
+											onClick={() => {
+												props.unFollowUser(u.id);
+											}}>Unfollow</button>
+									:
+									<button disabled={props.followingInProgress.some(id => id === u.id)}
+											className={`${s.follow_btn} ${s.follow}`}
+											onClick={() => {
+												props.followUser(u.id);
+											}}>Follow</button>
 								}
 							</div>
 							<div className={s.info}>
@@ -53,7 +58,6 @@ let Users = (props) => {
 							</div>
 						</div>
 					)}
-				<button className={s.show_more} onClick={props.showMore}>Show more</button>
 			</div>
 		</div>
 	);

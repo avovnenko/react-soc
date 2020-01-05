@@ -1,32 +1,25 @@
 import React from "react";
 import {connect} from "react-redux"
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {
-	follow,
+	followUser, getUsers,
 	setCurrentPage,
-	setTotalUsersCount,
-	setUsers,
 	showMore, turnOffPreloader, turnOnPreloader,
-	unfollow
+		unFollowUser
 } from "../../redux/usersReducer";
+import withAuthRedirect from "../../hoc/AuthRedirect/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component {
-	followUser = (userId) => {
-		this.props.follow(userId);
-	};
-	unFollowUser = (userId) => {
-		this.props.unFollow(userId);
-	};
 	showMore = () => {
 		this.props.showMore();
 	};
-	setCurrentPage = (pageNumber) => {
-		if (pageNumber !== this.props.currentPage) {
-			this.props.setCurrentPage(pageNumber);
-			this.getUsers(pageNumber);
+	setCurrentPage = (currentPage) => {
+		if (currentPage !== this.props.currentPage) {
+			this.props.setCurrentPage(currentPage);
+			this.getUsers(currentPage);
 		}
 	};
 
@@ -37,16 +30,8 @@ class UsersContainer extends React.Component {
 		this.props.turnOffPreloader();
 	};
 
-	getUsers(pageNumber) {
-		this.turnOnPreloader();
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=5`)
-			.then(response => {
-				this.props.setUsers(response.data.items);
-				this.props.setTotalUsersCount(response.data.totalCount);
-			})
-			.then(() => {
-				this.turnOffPreloader();
-			});
+	getUsers(currentPage) {
+		this.props.getUsers(currentPage, this.props.pageSize);
 	};
 
 	componentDidMount() {
@@ -66,9 +51,10 @@ class UsersContainer extends React.Component {
 				users={this.props.users}
 				isFetching={this.props.isFetching}
 				showMore={this.showMore}
-				unFollowUser={this.unFollowUser}
-				followUser={this.followUser}
+				unFollowUser={this.props.unFollowUser}
+				followUser={this.props.followUser}
 				setCurrentPage={this.setCurrentPage}
+				followingInProgress={this.props.followingInProgress}
 			/>
 		</>
 	}
@@ -81,15 +67,21 @@ const mapStateToProps = (state) => {
 		pageSize: state.usersPage.pageSize,
 		totalUsersCount: state.usersPage.totalUsersCount,
 		currentPage: state.usersPage.currentPage,
-		isFetching: state.usersPage.isFetching
+		isFetching: state.usersPage.isFetching,
+		followingInProgress: state.usersPage.followingInProgress
 	}
 };
 
 const mapDispatchToProps = {
-	follow, unfollow,
-	showMore, setUsers,
-	setTotalUsersCount, setCurrentPage,
-	turnOnPreloader, turnOffPreloader
+	showMore, setCurrentPage,
+	turnOnPreloader, turnOffPreloader,
+	getUsers,
+	followUser,
+	unFollowUser
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+
+export default compose(
+	connect(mapStateToProps, mapDispatchToProps),
+	withAuthRedirect
+)(UsersContainer);

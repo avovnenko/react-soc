@@ -1,7 +1,19 @@
 .header {
     grid-area: h;
     background-color: #3c5a9a;
+    padding-right: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .header img {
     width: 60px;
+}
+.loginBlock {
+    float: right;
+}
+.loginBlock a {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
 }

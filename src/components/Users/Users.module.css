@@ -27,6 +27,9 @@
     font-weight: bold;
     font-size: 16px ;
 }
+.follow_btn[disabled] {
+    opacity: .5;
+}
 .follow_btn.unfollow {
     background-color: red;
 }

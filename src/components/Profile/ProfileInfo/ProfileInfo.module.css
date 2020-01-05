@@ -10,3 +10,8 @@
 .s_l {
 
 }
+.profileStatus {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+}
