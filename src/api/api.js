@@ -15,13 +15,8 @@ export const usersAPI = {
 			.then(response => response.data);
 	},
 	getUserProfile(userId = 5518) {
-		return instance.get(`profile/${userId}`).then(response => response.data);
-	},
-	getUserProfileStatus(userId = 5518) {
-		return instance.get(`profile/status/${userId}`).then(response => response.data);
-	},
-	updateUserProfileStatus(status) {
-		return instance.put(`profile/status/` , {status}).then(response => response.data);
+		console.warn('Oboslate method! Please use profileAPI');
+		return profileAPI.getUserProfile(userId);
 	},
 	followUser(userId) {
 		return instance.post(`follow/${userId}`, {})
@@ -33,7 +28,27 @@ export const usersAPI = {
 	}
 };
 
+export const profileAPI = {
+	getUserProfile(userId = 5518) {
+		return instance.get(`profile/${userId}`).then(response => response.data);
+	},
+	getUserProfileStatus(userId = 5518) {
+		return instance.get(`profile/status/${userId}`).then(response => response.data);
+	},
+	updateUserProfileStatus(status) {
+		return instance.put(`profile/status/` , {status}).then(response => response.data);
+	}
+};
+
 export const authAPI = {
+	login(email, password, rememberMe = false, captcha = false) {
+		return instance.post(`auth/login`, { email, password, rememberMe, captcha})
+			.then(response => response.data);
+	},
+	logout() {
+		return instance.delete(`auth/login`)
+			.then(response => response.data);
+	},
 	me() {
 		return instance.get(`auth/me`)
 			.then(response => response.data);

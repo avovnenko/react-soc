@@ -4,12 +4,21 @@ import React from 'react';
 class ProfileStatus extends React.Component {
 	state = {
 		editMode: false,
-		isEmpty: this.props.profileStatus ? false : true,
-		profileStatus: this.props.profileStatus
+		profileStatus: this.props.profileStatus,
+		isEmpty: this.props.profileStatus ? false : true
 	};
 
 	componentDidMount() {
-		console.log(this.state);
+
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if (prevProps.status !== this.props.status ) {
+			this.setState({
+				status: this.props.status,
+				isEmpty: this.props.profileStatus ? false : true
+			});
+		}
 	}
 
 	activateEditMode = () => {

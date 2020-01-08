@@ -1,4 +1,4 @@
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST',
 	UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
@@ -62,11 +62,11 @@ export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_
 
 export const getUserProfile = (userId) =>
 	(dispatch) => {
-		usersAPI.getUserProfile(userId)
+		profileAPI.getUserProfile(userId)
 			.then(response => {
 				dispatch(setUserProfile(response));
 			});
-		usersAPI.getUserProfileStatus(userId)
+		profileAPI.getUserProfileStatus(userId)
 			.then(response => {
 				dispatch(setUserProfileStatus(response));
 			});
@@ -74,8 +74,10 @@ export const getUserProfile = (userId) =>
 
 export const updateUserProfileStatus = (profileStatus) =>
 	(dispatch) => {
-		usersAPI.updateUserProfileStatus(profileStatus)
+		profileAPI.updateUserProfileStatus(profileStatus)
 			.then((response) => {
-				dispatch(setUserProfileStatus(profileStatus));
+				if (response.data.resultCode === 0) {
+					dispatch(setUserProfileStatus(profileStatus));
+				}
 			});
 	};
