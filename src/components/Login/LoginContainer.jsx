@@ -6,8 +6,8 @@ import {Redirect} from "react-router-dom";
 
 class LoginContainer extends React.Component {
 	onLogin = (email, password, rememberMe, captcha) => {
-		this.props.userLogin(email, password, rememberMe, captcha)
-	}
+		this.props.userLogin(email, password, rememberMe, captcha);
+	};
 
 	render() {
 		if (this.props.isAuth)

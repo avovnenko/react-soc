@@ -9,3 +9,10 @@
     color: red;
     border-bottom: 2px solid red;
 }
+.formError {
+    margin-top: 15px;
+    color: red;
+    font-size: 14px;
+    border: 2px solid red;
+    padding: 5px 10px;
+}

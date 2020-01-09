@@ -2,8 +2,10 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {Input} from "../common/FormsControls/FormsControls";
 import {requiredField} from "../../utils/validators/validators";
+import s from "../common/FormsControls/FormsControls.module.css";
 
 const LoginForm = (props) => {
+
 	return <form onSubmit={props.handleSubmit}>
 		<div>
 			<Field component={Input}
@@ -25,8 +27,9 @@ const LoginForm = (props) => {
 				   name={'rememberMe'}/>
 			<label htmlFor={'remember-me'}>Remember me</label>
 		</div>
+		{props.error && <div className={s.formError}>{props.error}</div> }
 		<div>
-			<button type={'submit'}>Login</button>
+			<button disabled={props.submitting} type={'submit'}>Login</button>
 		</div>
 	</form>;
 };
