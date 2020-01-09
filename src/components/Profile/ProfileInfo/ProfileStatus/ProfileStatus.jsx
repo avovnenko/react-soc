@@ -8,14 +8,10 @@ class ProfileStatus extends React.Component {
 		isEmpty: this.props.profileStatus ? false : true
 	};
 
-	componentDidMount() {
-
-	}
-
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		if (prevProps.status !== this.props.status ) {
+		if (prevProps.profileStatus !== this.props.profileStatus ) {
 			this.setState({
-				status: this.props.status,
+				profileStatus: this.props.profileStatus,
 				isEmpty: this.props.profileStatus ? false : true
 			});
 		}
@@ -32,7 +28,7 @@ class ProfileStatus extends React.Component {
 			editMode: false,
 			isEmpty: this.props.profileStatus ? false : true,
 		});
-		this.props.updateUserProfileStatus(this.state.profileStatus);
+		this.props.updateProfileStatus(this.state.profileStatus);
 	};
 
 	statusOnChangeHandle = (e) => {

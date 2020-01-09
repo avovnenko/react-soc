@@ -6,13 +6,12 @@ import {updateUserProfileStatus} from "../../../../redux/profileReducer";
 
 class ProfileStatusContainer extends React.Component {
 
-	updateUserProfileStatus = (status) => {
+	updateUserStatus = (status) => {
 		this.props.updateUserProfileStatus(status);
 	};
 
 	render() {
-		return <ProfileStatus {...this.props}
-							  updateUserProfileStatus={this.updateUserProfileStatus} />;
+		return <ProfileStatus {...this.props} updateProfileStatus={this.updateUserStatus} />;
 	}
 }
 

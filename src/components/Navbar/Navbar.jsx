@@ -8,7 +8,7 @@ class Navbar extends React.Component {
 		return (
 			<nav className={s.nav}>
 				<div className={`${s.item}`}>
-					<NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
+					<NavLink to="/profile/5518" activeClassName={s.activeLink}>Profile</NavLink>
 				</div>
 				<div className={s.item}>
 					<NavLink to="/dialogs" activeClassName={s.activeLink}>Messages</NavLink>
@@ -20,10 +20,10 @@ class Navbar extends React.Component {
 					<NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>
 				</div>
 				<div className={s.item}>
-					<a href="#">Music</a>
+					<NavLink to="/music" activeClassName={s.activeLink}>Music</NavLink>
 				</div>
 				<div className={s.item}>
-					<a href="#">Settings</a>
+					<NavLink to="Settings" activeClassName={s.activeLink}>Settings</NavLink>
 				</div>
 
 				<h1>Friends</h1>

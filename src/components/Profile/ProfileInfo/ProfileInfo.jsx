@@ -32,7 +32,7 @@ const ProfileInfo = (props) => {
 					{props.profile.aboutMe}
 				</div>
 				<div className={s.profileStatus}>
-					<ProfileStatusContainer profile={props.profile} />
+					<ProfileStatusContainer profile={props.profile}/>
 				</div>
 				Мои ссылки:
 				<ul className={s.s_l}>
