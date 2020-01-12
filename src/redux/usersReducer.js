@@ -106,7 +106,7 @@ export const turnOffPreloader = () => ({type: TURN_OFF_PRELOADER});
 export const followingInProgress = (isFetching, userId) => ({type: FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 
-export const getUsers = (currentPage, pageSize) =>
+export const requestUsers = (currentPage, pageSize) =>
 	(dispatch) => {
 		dispatch(turnOnPreloader);
 

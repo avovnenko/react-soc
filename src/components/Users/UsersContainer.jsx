@@ -3,13 +3,20 @@ import {connect} from "react-redux"
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {
-	followUser, getUsers,
+	followUser, requestUsers,
 	setCurrentPage,
 	showMore, turnOffPreloader, turnOnPreloader,
 		unFollowUser
 } from "../../redux/usersReducer";
 import withAuthRedirect from "../../hoc/AuthRedirect/withAuthRedirect";
 import {compose} from "redux";
+import {
+	getCurrentPage, getFollowingInProgress,
+	getIsFetching,
+	getPageSize,
+	getShowUsers,
+	getTotalUsersCount, getUsers
+} from "../../redux/users-selectors";
 
 
 class UsersContainer extends React.Component {
@@ -19,7 +26,7 @@ class UsersContainer extends React.Component {
 	setCurrentPage = (currentPage) => {
 		if (currentPage !== this.props.currentPage) {
 			this.props.setCurrentPage(currentPage);
-			this.getUsers(currentPage);
+			this.requestUsers(currentPage);
 		}
 	};
 
@@ -30,13 +37,13 @@ class UsersContainer extends React.Component {
 		this.props.turnOffPreloader();
 	};
 
-	getUsers(currentPage) {
-		this.props.getUsers(currentPage, this.props.pageSize);
+	requestUsers(currentPage) {
+		this.props.requestUsers(currentPage, this.props.pageSize);
 	};
 
 	componentDidMount() {
 		if (this.props.users.length === 0) {
-			this.getUsers(this.props.currentPage);
+			this.requestUsers(this.props.currentPage);
 		}
 	};
 
@@ -60,6 +67,7 @@ class UsersContainer extends React.Component {
 	}
 }
 
+/*
 const mapStateToProps = (state) => {
 	return {
 		users: state.usersPage.users,
@@ -71,11 +79,24 @@ const mapStateToProps = (state) => {
 		followingInProgress: state.usersPage.followingInProgress
 	}
 };
+*/
+
+const mapStateToProps = (state) => {
+	return {
+		users: getUsers(state),
+		showUsers: getShowUsers(state),
+		pageSize: getPageSize(state),
+		totalUsersCount: getTotalUsersCount(state),
+		currentPage: getCurrentPage(state),
+		isFetching: getIsFetching(state),
+		followingInProgress: getFollowingInProgress(state)
+	}
+};
 
 const mapDispatchToProps = {
 	showMore, setCurrentPage,
 	turnOnPreloader, turnOffPreloader,
-	getUsers,
+	requestUsers,
 	followUser,
 	unFollowUser
 };
