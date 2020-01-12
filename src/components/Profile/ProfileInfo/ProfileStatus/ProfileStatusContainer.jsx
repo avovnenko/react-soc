@@ -1,7 +1,7 @@
 import React from 'react';
-import ProfileStatus from "./ProfileStatus";
 import {connect} from "react-redux";
 import {updateUserProfileStatus} from "../../../../redux/profileReducer";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 
 class ProfileStatusContainer extends React.Component {
@@ -11,7 +11,7 @@ class ProfileStatusContainer extends React.Component {
 	};
 
 	render() {
-		return <ProfileStatus {...this.props} updateProfileStatus={this.updateUserStatus} />;
+		return <ProfileStatusWithHooks {...this.props} updateProfileStatus={this.updateUserStatus} />;
 	}
 }
 

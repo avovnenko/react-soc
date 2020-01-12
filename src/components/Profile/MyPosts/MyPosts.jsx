@@ -1,31 +1,35 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import { Field, reduxForm } from 'redux-form';
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
-const MyPosts = (props) => {
+class MyPosts extends PureComponent  {
 
-	let postsElements =
-		props.profilePage.posts.map( p => <Post name={p.name} status={p.status} message={p.message} key={p.id} likesCount={p.likesCount}/>);
+	render() {
 
-	let onSubmit = (formData) => {
-		props.addPost(formData.newPostText);
-		formData.newPostText = '';
-	};
+		let postsElements =
+			this.props.profilePage.posts.map(p => <Post name={p.name} status={p.status} message={p.message} key={p.id}
+														likesCount={p.likesCount}/>);
 
-	return (
-		<div className={s.myPostsBlock}>
-			My posts
-			<div className={s.addPost}>
-				<AddPostReduxForm onSubmit={onSubmit}/>
+		let onSubmit = (formData) => {
+			this.props.addPost(formData.newPostText);
+			formData.newPostText = '';
+		};
+
+		return (
+			<div className={s.myPostsBlock}>
+				My posts
+				<div className={s.addPost}>
+					<AddPostReduxForm onSubmit={onSubmit}/>
+				</div>
+				<div className={s.posts}>
+					{postsElements}
+				</div>
 			</div>
-			<div className={s.posts}>
-				{postsElements}
-			</div>
-		</div>
-	);
+		);
+	}
 }
 
 const maxLength10 = maxLengthCreator(10);
