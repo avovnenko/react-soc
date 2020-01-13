@@ -24,7 +24,7 @@ let Users = React.memo((props) => {
 					} else if (p <= parseInt(props.currentPage) + 5 && p >= parseInt(props.currentPage) - 5) {
 						return <li key={p}>.</li>
 					}
-
+					return null;
 				})}
 			</ul>
 			<div className={s.users}>

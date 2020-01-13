@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import {getUserProfile, getUserProfileStatus} from "../../redux/profileReducer";
-import {Redirect, withRouter} from "react-router-dom";
+import {getUserProfile} from "../../redux/profileReducer";
+import {withRouter} from "react-router-dom";
 import withAuthRedirect from "../../hoc/AuthRedirect/withAuthRedirect";
 import {compose} from "redux";
 

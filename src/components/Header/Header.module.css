@@ -12,7 +12,7 @@
 .loginBlock {
     float: right;
 }
-.loginBlock a {
+.loginBlock .login {
     color: white;
     text-decoration: none;
     padding: 5px;

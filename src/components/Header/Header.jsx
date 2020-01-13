@@ -11,7 +11,7 @@ const Header = (props) => {
 			<div className={s.loginBlock}>
 				{ props.isAuth ?
 					<div>
-						<a className={`login`}>{props.login}</a>
+						<span className={s.login}>{props.login}</span>
 						<button onClick={props.userLogout}>Logout</button>
 					</div>
 					:

@@ -107,38 +107,34 @@ export const followingInProgress = (isFetching, userId) => ({type: FOLLOWING_IN_
 
 
 export const requestUsers = (currentPage, pageSize) =>
-	(dispatch) => {
+	async (dispatch) => {
 		dispatch(turnOnPreloader);
 
-		usersAPI.getUsers(currentPage, pageSize)
-			.then(response => {
-				dispatch(setUsers(response.items));
-				dispatch(setTotalUsersCount(response.totalCount));
-			})
-			.then(() => {
-				dispatch(turnOffPreloader);
-			});
+		let response = await usersAPI.getUsers(currentPage, pageSize)
+
+		dispatch(setUsers(response.items));
+		dispatch(setTotalUsersCount(response.totalCount));
+
+		dispatch(turnOffPreloader);
 	};
 export const followUser = (userId) =>
-	(dispatch) => {
+	async (dispatch) => {
 		dispatch(followingInProgress(true, userId));
-		usersAPI.followUser(userId)
-			.then(response => {
-				if (response.resultCode === 0) {
-					dispatch(followSuccess(userId));
-				}
-				dispatch(followingInProgress(false, userId));
-			});
+		let response = await usersAPI.followUser(userId)
+
+		if (response.resultCode === 0) {
+			dispatch(followSuccess(userId));
+		}
+		dispatch(followingInProgress(false, userId));
 	};
 export const unFollowUser = (userId) =>
-	(dispatch) => {
+	async (dispatch) => {
 		dispatch(followingInProgress(true, userId));
-		usersAPI.unfollowUser(userId)
-			.then(response => {
-				if (response.resultCode === 0) {
-					dispatch(unfollowSuccess(userId));
-				}
-				dispatch(followingInProgress(false, userId));
-			});
+		let response = await usersAPI.unfollowUser(userId)
+
+		if (response.resultCode === 0) {
+			dispatch(unfollowSuccess(userId));
+		}
+		dispatch(followingInProgress(false, userId));
 	};
 

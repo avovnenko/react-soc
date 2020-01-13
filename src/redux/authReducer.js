@@ -30,32 +30,29 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USE
 export default authReducer;
 
 export const authMe = () =>
-	(dispatch) => {
-		return authAPI.me()
-			.then(response => {
-				if (response.resultCode === 0) {
-					let {id, email, login} = response.data;
-					dispatch(setAuthUserData(id, email, login, true));
-				}
-			});
+	async (dispatch) => {
+		let response = await authAPI.me();
+
+		if (response.resultCode === 0) {
+			let {id, email, login} = response.data;
+			dispatch(setAuthUserData(id, email, login, true));
+		}
 	};
 export const userLogin = (email, password, rememberMe, captcha) =>
-	(dispatch) => {
-		authAPI.login(email, password, rememberMe, captcha)
-			.then(response => {
-				if (response.resultCode === 0) {
-					dispatch(authMe());
-				} else {
-					dispatch(stopSubmit("login", {_error: response.messages.length > 0 ? response.messages[0] : 'Some error!' }));
-				}
-			});
+	async (dispatch) => {
+		let response = await authAPI.login(email, password, rememberMe, captcha);
+
+		if (response.resultCode === 0) {
+			dispatch(authMe());
+		} else {
+			dispatch(stopSubmit("login", {_error: response.messages.length > 0 ? response.messages[0] : 'Some error!' }));
+		}
 	};
 export const userLogout = () =>
-	(dispatch) => {
-		authAPI.logout()
-			.then(response => {
-				if (response.resultCode === 0) {
-					dispatch(setAuthUserData(null, null, null, false));
-				}
-			});
+	async (dispatch) => {
+		let response = await authAPI.logout();
+
+		if (response.resultCode === 0) {
+			dispatch(setAuthUserData(null, null, null, false));
+		}
 	};

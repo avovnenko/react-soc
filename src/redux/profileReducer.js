@@ -52,33 +52,28 @@ export const setUserProfileStatus = (profileStatus) => ({type: SET_USER_PROFILE_
 
 
 export const getUserProfile = (userId) =>
-	(dispatch) => {
-		profileAPI.getUserProfile(userId)
-			.then(response => {
-				dispatch(setUserProfile(response));
-			})
-			.then(() => {
-				profileAPI.getUserProfileStatus(userId)
-					.then(response => {
-						dispatch(setUserProfileStatus(response));
-					});
-			});
+	async (dispatch) => {
+		let response = await profileAPI.getUserProfile(userId);
+
+		dispatch(setUserProfile(response));
+
+		let responseStatus = await profileAPI.getUserProfileStatus(userId);
+
+		dispatch(setUserProfileStatus(responseStatus));
 	};
 
 export const getUserProfileStatus = (userId) =>
-	(dispatch) => {
-		profileAPI.getUserProfileStatus(userId)
-			.then(response => {
-				dispatch(setUserProfileStatus(response));
-			});
+	async (dispatch) => {
+		let response = await profileAPI.getUserProfileStatus(userId)
+
+		dispatch(setUserProfileStatus(response));
 	};
 
 export const updateUserProfileStatus = (profileStatus) =>
-	(dispatch) => {
-		profileAPI.updateUserProfileStatus(profileStatus)
-			.then((response) => {
-				if (response.resultCode === 0) {
-					dispatch(setUserProfileStatus(profileStatus));
-				}
-			});
+	async (dispatch) => {
+		let response = await profileAPI.updateUserProfileStatus(profileStatus);
+
+		if (response.resultCode === 0) {
+			dispatch(setUserProfileStatus(profileStatus));
+		}
 	};

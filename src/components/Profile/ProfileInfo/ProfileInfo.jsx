@@ -11,7 +11,7 @@ const ProfileInfo = (props) => {
 		return <Preloader/>;
 	} else {
 		let contacts = [];
-		for (let c in props.profile.contacts ) {
+		for (let c in props.profile.contacts) {
 			if (props.profile.contacts.hasOwnProperty(c)) {
 				contacts.push({
 					name: c,
@@ -39,11 +39,12 @@ const ProfileInfo = (props) => {
 					{
 						contacts.map(c => {
 								if (c.url)
-								return <li key={c.name}>
-									<a href={`${c.url}`} target="blank">
-										{c.name}
-									</a>
-								</li>;
+									return <li key={c.name}>
+										<a href={`${c.url}`} target="blank">
+											{c.name}
+										</a>
+									</li>;
+								return null;
 							}
 						)
 					}

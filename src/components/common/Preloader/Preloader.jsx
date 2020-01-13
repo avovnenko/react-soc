@@ -6,7 +6,7 @@ let Preloader = (props) => {
 	return (
 		<div className={s.preloaderWrapper}>
 			<div className={s.matrixBg}></div>
-			<img src={preloader}/>
+			<img src={preloader} alt={'Preloader'}/>
 		</div>
 	)
 };
