@@ -5,17 +5,17 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatusContainer from "./ProfileStatus/ProfileStatusContainer";
 
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({profile}) => {
 
-	if (!props.profile) {
+	if (!profile) {
 		return <Preloader/>;
 	} else {
 		let contacts = [];
-		for (let c in props.profile.contacts) {
-			if (props.profile.contacts.hasOwnProperty(c)) {
+		for (let c in profile.contacts) {
+			if (profile.contacts.hasOwnProperty(c)) {
 				contacts.push({
 					name: c,
-					url: props.profile.contacts[c]
+					url: profile.contacts[c]
 				});
 			}
 		}
@@ -23,16 +23,16 @@ const ProfileInfo = (props) => {
 		return (
 			<div>
 				<div className={s.bg}>
-					<img src={!props.profile.photos.large ? userPhoto : props.profile.photos.large} alt=""/>
+					<img src={!profile.photos.large ? userPhoto : profile.photos.large} alt=""/>
 				</div>
 				<div className={s.descriptionBlock}>
-					Привет! Это - {props.profile.fullName}
+					Привет! Это - {profile.fullName}
 				</div>
 				<div className={s.descriptionBlock}>
-					{props.profile.aboutMe}
+					{profile.aboutMe}
 				</div>
 				<div className={s.profileStatus}>
-					<ProfileStatusContainer profile={props.profile}/>
+					<ProfileStatusContainer profile={profile}/>
 				</div>
 				Мои ссылки:
 				<ul className={s.s_l}>

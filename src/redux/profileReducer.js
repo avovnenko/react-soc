@@ -1,9 +1,9 @@
 import {profileAPI} from "../api/api";
 
-const ADD_POST = 'ADD-POST',
-	DELETE_POST = 'DELETE-POST',
-	SET_USER_PROFILE = 'SET-USER-PROFILE',
-	SET_USER_PROFILE_STATUS = 'SET-USER-PROFILE-STATUS';
+const ADD_POST = 'profile/ADD-POST',
+	DELETE_POST = 'profile/DELETE-POST',
+	SET_USER_PROFILE = 'profile/SET-USER-PROFILE',
+	SET_USER_PROFILE_STATUS = 'profile/SET-USER-PROFILE-STATUS';
 
 let initialState = {
 	posts: [

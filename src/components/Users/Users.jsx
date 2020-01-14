@@ -1,63 +1,21 @@
 import React from 'react';
 import s from "./Users.module.css";
-import userPhoto from '../../assets/images/nophoto.jpg';
-import {NavLink} from "react-router-dom";
+import Paginator from "../common/Pagination/Pagination";
+import User from "./User";
 
-let Users = React.memo((props) => {
-
-	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-
-	let pages = [];
-
-	for (let i = 1; i <= pagesCount; i++) {
-		pages.push(i);
-	}
-
+let Users = React.memo(({pageSize, currentPage, totalUsersCount, setCurrentPage, ...props}) => {
 	return (
 		<div>
-			<ul className={s.pagination}>
-				{pages.map(p => {
-					if ((p >= parseInt(props.currentPage) - 2 && p <= parseInt(props.currentPage) + 2) || p === pagesCount || p === 1) {
-						return <li key={p} onClick={() => {
-							props.setCurrentPage(p);
-						}} className={p === parseInt(props.currentPage) ? s.selected_page : ''}>{p}</li>
-					} else if (p <= parseInt(props.currentPage) + 5 && p >= parseInt(props.currentPage) - 5) {
-						return <li key={p}>.</li>
-					}
-					return null;
-				})}
-			</ul>
+			<Paginator currentPage={currentPage}
+					   totalUsersCount={totalUsersCount}
+					   setCurrentPage={setCurrentPage}
+					   pageSize={pageSize}/>
 			<div className={s.users}>
 				{
-					props.users.slice(0, props.showUsers).map(u =>
-						<div className={s.user_block} key={u.id}>
-							<div className={s.pic_block}>
-								<div className={s.pic}>
-									<NavLink to={`/profile/${u.id}`}>
-										<img src={u.photos.small !== null ? u.photos.small : userPhoto} alt=""/>
-									</NavLink>
-								</div>
-								{u.followed
-									?
-									<button disabled={props.followingInProgress.some(id => id === u.id)}
-											className={`${s.follow_btn} ${s.unfollow}`}
-											onClick={() => {
-												props.unFollowUser(u.id);
-											}}>Unfollow</button>
-									:
-									<button disabled={props.followingInProgress.some(id => id === u.id)}
-											className={`${s.follow_btn} ${s.follow}`}
-											onClick={() => {
-												props.followUser(u.id);
-											}}>Follow</button>
-								}
-							</div>
-							<div className={s.info}>
-								<span className={s.name}>{u.name}</span>
-								<span className={s.status}>{u.status}</span>
-							</div>
-						</div>
-					)}
+					props.users.slice(0, props.showUsers).map(u => <User key={u.id} user={u}
+							  followingInProgress={props.followingInProgress}
+							  toggleFollow={props.toggleFollow} />)
+				}
 			</div>
 		</div>
 	);

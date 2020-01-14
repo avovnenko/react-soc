@@ -48,25 +48,7 @@
 .name {
 
 }
-.pagination {
-    display: flex;
-    align-items: flex-end;
-    list-style: none;
-    -webkit-padding-start: 0;
-}
-.pagination li {
-    margin-right: 5px;
-    width: 40px;
-    text-align: center;
-    cursor: pointer;
-}
-.pagination li:last-child {
-    margin-right: 0;
-}
-.selected_page {
-    font-weight: bold;
-    font-size: 24px;
-}
+
 .get_users {
     margin-bottom: 15px;
 }
