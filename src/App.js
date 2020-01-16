@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 
-import {BrowserRouter, Route, withRouter} from "react-router-dom"
+import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom"
 import UsersContainer from "./components/Users/UsersContainer";
 
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -70,11 +70,11 @@ let AppContainer = compose(
 
 
 const MainApp = (props) => {
-	return <BrowserRouter>
+	return <HashRouter basename={process.env.PUBLIC_URL}>
 		<Provider store={store}>
 			<AppContainer />
 		</Provider>
-	</BrowserRouter>;
+	</HashRouter>;
 };
 
 export default MainApp;
