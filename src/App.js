@@ -1,18 +1,22 @@
-import React, {Component} from 'react';
-
+import React, {Component, Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import {Route, withRouter} from "react-router-dom"
+
+import {BrowserRouter, Route, withRouter} from "react-router-dom"
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/LoginContainer";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import store from "./redux/redux-store";
+import WithSuspense from "./hoc/withSuspense/withSuspense";
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 
 class App extends Component {
 	componentDidMount() {
@@ -20,9 +24,9 @@ class App extends Component {
 	}
 
 	render() {
-		let componentsDialogs = () => <DialogsContainer/>,
+		let componentsDialogs = WithSuspense(DialogsContainer),
 
-			componentsProfile = () => <ProfileContainer/>,
+			componentsProfile = WithSuspense(ProfileContainer),
 
 			componentsUsers = () => <UsersContainer/>;
 
@@ -59,8 +63,20 @@ const mapStateToProps = (state) => ({
 });
 
 
-
-export default compose(
+let AppContainer = compose(
 	withRouter,
 	connect(mapStateToProps, {initializeApp})
 )(App);
+
+
+const MainApp = (props) => {
+	return <BrowserRouter>
+		<Provider store={store}>
+			<AppContainer />
+		</Provider>
+	</BrowserRouter>;
+};
+
+export default MainApp;
+
+

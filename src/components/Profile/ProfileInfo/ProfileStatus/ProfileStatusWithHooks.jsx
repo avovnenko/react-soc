@@ -17,7 +17,6 @@ const ProfileStatusWithHooks = (props) => {
 		props.updateProfileStatus(profileStatus);
 	};
 	const statusOnChangeHandle = (e) => {
-		console.log(e.target.value);
 		changeProfileStatus(e.target.value);
 	};
 
